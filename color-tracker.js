@@ -1,39 +1,49 @@
-function initNoiseMaker() {
-    
-    var synth = new Tone.AMSynth().toMaster()
+class ColorNoiseMaker {
+    constructor() {
 
-    $('button').on('click', function(event) {
-	console.log('event', event);
+	this.makeNoise = true;
+	this.colors = ['magenta', 'cyan', 'yellow'];
+	this.videoId = '#video';
+	var canvas = document.getElementById('canvas');
+	this.context = canvas.getContext('2d');
+	this.colorTracker = new tracking.ColorTracker(this.colors);
+	this.polySynth = new Tone.PolySynth(4, Tone.Synth).toMaster();
 
-	//play a middle 'C' for the duration of an 8th note
-	synth.triggerAttackRelease('C4', '8n')
-    });
+	this.initTracking();
+    }
+
+    initTracking() {
+	const self = this;
+	
+	tracking.track(this.videoId, this.colorTracker, { camera: true });
+	this.colorTracker.on('track', function(event) {
+	    self.context.clearRect(0, 0, canvas.width, canvas.height);
+	    event.data.forEach(function(rect) {
+
+		if (self.makeNoise) {		    
+		    //play a chord
+		    self.polySynth.triggerAttackRelease(["C4", "E4", "G4", "B4"], "2n");
+		}
+		
+		self.context.strokeStyle = rect.color;
+		self.context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+            });
+	});
+    }
+
+    toggleNoise() {
+	this.makeNoise = !this.makeNoise;
+    }
 }
 
-function initVideoTracker() {
-    var video = document.getElementById('video');
-    var canvas = document.getElementById('canvas');
-    var context = canvas.getContext('2d');
-    var tracker = new tracking.ColorTracker(['magenta', 'cyan', 'yellow']);
-    // a 4 voice Synth
-    var polySynth = new Tone.PolySynth(4, Tone.Synth).toMaster();
-    
-    tracking.track('#video', tracker, { camera: true });
-    tracker.on('track', function(event) {
-	context.clearRect(0, 0, canvas.width, canvas.height);
-	event.data.forEach(function(rect) {
 
-	    //play a chord
-	    polySynth.triggerAttackRelease(["C4", "E4", "G4", "B4"], "2n");
-
-	    context.strokeStyle = rect.color;
-	    context.strokeRect(rect.x, rect.y, rect.width, rect.height);
-        });
-    });
-}
 
 
 window.onload = function() {
-    initVideoTracker();
-    initNoiseMaker();
+    const NoiseMaker = new ColorNoiseMaker();
+
+    $('button').on('click', function(e) {
+	console.log('eeeee', e);
+	NoiseMaker.toggleNoise();
+    });
 };
