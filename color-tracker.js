@@ -9,6 +9,8 @@ class ColorNoiseMaker {
 	this.colorTracker = new tracking.ColorTracker(this.colors);
 	this.polySynth = new Tone.PolySynth(4, Tone.Synth).toMaster();
 
+	this.CScale = ["C3","D3","E3","F3","G3","A3","B3","C4","D4","E4","F4","G4","A4","B4"];
+	
 	this.initTracking();
     }
 
@@ -20,9 +22,10 @@ class ColorNoiseMaker {
 	    self.context.clearRect(0, 0, canvas.width, canvas.height);
 	    event.data.forEach(function(rect) {
 
-		if (self.makeNoise) {		    
+		if (self.makeNoise) {
+		    const soundIndex = parseInt(rect.x) % 40;
 		    //play a chord
-		    self.polySynth.triggerAttackRelease(["C4", "E4", "G4", "B4"], "2n");
+		    self.polySynth.triggerAttackRelease([self.CScale[soundIndex], self.CScale[soundIndex+2]], "2n");
 		}
 		
 		self.context.strokeStyle = rect.color;
@@ -43,7 +46,6 @@ window.onload = function() {
     const NoiseMaker = new ColorNoiseMaker();
 
     $('button').on('click', function(e) {
-	console.log('eeeee', e);
 	NoiseMaker.toggleNoise();
     });
 };
