@@ -1,12 +1,17 @@
+import $ from 'jquery';
+import Tone from 'tone';
+import tracking, { ColorTracker } from 'tracking';
+
 class ColorNoiseMaker {
-    constructor() {
+    constructor(videoId, canvasId) {
 
 	this.makeNoise = true;
 	this.colors = ['magenta', 'cyan', 'yellow'];
-	this.videoId = '#video';
-	var canvas = document.getElementById('canvas');
-	this.context = canvas.getContext('2d');
-	this.colorTracker = new tracking.ColorTracker(this.colors);
+	this.videoId ='#'+videoId;
+	this.canvas = $('canvas#colorTrackerCanvas')[0];
+	this.context = this.canvas.getContext('2d');
+	this.colorTracker = new ColorTracker(this.colors);
+	debugger;
 	this.polySynth = new Tone.PolySynth(4, Tone.Synth).toMaster();
 	this.distortion = new Tone.Distortion().toMaster();
 	
@@ -20,7 +25,7 @@ class ColorNoiseMaker {
 	
 	tracking.track(this.videoId, this.colorTracker, { camera: true });
 	this.colorTracker.on('track', function(event) {
-	    self.context.clearRect(0, 0, canvas.width, canvas.height);
+	    self.context.clearRect(0, 0, self.canvas.width, self.canvas.height);
 	    event.data.forEach(function(rect) {
 
 		if (self.makeNoise) {
@@ -46,13 +51,5 @@ class ColorNoiseMaker {
     }
 }
 
+export default ColorNoiseMaker;
 
-
-
-window.onload = function() {
-    const NoiseMaker = new ColorNoiseMaker();
-
-    $('button').on('click', function(e) {
-	NoiseMaker.toggleNoise();
-    });
-};
