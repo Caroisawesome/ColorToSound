@@ -1,25 +1,22 @@
 import $ from 'jquery';
 import Tone from 'tone';
-import tracking, { ColorTracker } from 'tracking';
+var tracking = require("../lib/tracking" );
 
 class ColorNoiseMaker {
     constructor(videoId, canvasId) {
-
 	this.makeNoise = true;
 	this.colors = ['magenta', 'cyan', 'yellow'];
 	this.videoId ='#'+videoId;
-	this.canvas = $('canvas#colorTrackerCanvas')[0];
+	this.canvas = $('#'+canvasId)[0];
 	this.context = this.canvas.getContext('2d');
-	this.colorTracker = new ColorTracker(this.colors);
-	debugger;
 	this.polySynth = new Tone.PolySynth(4, Tone.Synth).toMaster();
 	this.distortion = new Tone.Distortion().toMaster();
+	this.colorTracker = new tracking.ColorTracker(this.colors);
 	
 	this.CScale = ["C3","D3","E3","F3","G3","A3","B3","C4","D4","E4","F4","G4","A4","B4"];
 	
 	this.initTracking();
     }
-
     initTracking() {
 	const self = this;
 	
@@ -51,5 +48,7 @@ class ColorNoiseMaker {
     }
 }
 
-export default ColorNoiseMaker;
+
+
+export default ColorNoiseMaker
 

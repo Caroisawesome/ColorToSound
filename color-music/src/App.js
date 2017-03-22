@@ -3,25 +3,29 @@ import ColorNoiseMaker from './ColorTrackerClass.js';
 
 class App extends Component {
 
-    contstructor(props) {
-	this.videoId = "colorTrackerVideo";
-	this.canvasId = "colorTrackerCanvas";
-	this.videoWidth = 600;
-	this.videoHeight = 450;
+    constructor(props) {
+	super(props);
+	this.state = {
+	    videoId: "colorTrackerVideo",
+	    canvasId: "colorTrackerCanvas",
+	    videoWidth: 600,
+	    videoHeight: 450
+	}
     }
 
     componentDidMount() {
-	this.noiseMaker = new ColorNoiseMaker(this.videoId, this.canvasId);
+	this.noiseMaker = new ColorNoiseMaker(this.state.videoId, this.state.canvasId);
     }
     
   render() {
     return (
       <div>
-	    <video id={this.videoId} width={this.videoWidth} height={this.videoHeight} preload autoPlay loop muted controls></video>
-	    <canvas id="colorTrackerCanvas" width={this.videoWidth} height={this.videoHeight}></canvas>
+	    <video id={this.state.videoId}
+	width={this.state.videoWidth} height={this.state.videoHeight} preload autoPlay loop muted controls></video>
+	    <canvas id={this.state.canvasId} width={this.state.videoWidth} height={this.state.videoHeight}></canvas>
       </div>
     );
   }
-}
+};
 
 export default App;
