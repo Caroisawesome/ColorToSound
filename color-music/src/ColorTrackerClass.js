@@ -1,6 +1,7 @@
+/* global tracking */
+
 import $ from 'jquery';
 import Tone from 'tone';
-var tracking = require("../lib/tracking" );
 
 class ColorNoiseMaker {
     constructor(videoId, canvasId) {
@@ -19,8 +20,7 @@ class ColorNoiseMaker {
     }
     initTracking() {
 	const self = this;
-	
-	tracking.track(this.videoId, this.colorTracker, { camera: true });
+
 	this.colorTracker.on('track', function(event) {
 	    self.context.clearRect(0, 0, self.canvas.width, self.canvas.height);
 	    event.data.forEach(function(rect) {
@@ -41,6 +41,8 @@ class ColorNoiseMaker {
 		self.context.strokeRect(rect.x, rect.y, rect.width, rect.height);
             });
 	});
+
+	tracking.track(this.videoId, this.colorTracker, { camera: true });
     }
 
     toggleNoise() {
