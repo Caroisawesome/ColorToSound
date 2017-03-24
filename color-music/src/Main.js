@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import App from './App';
 import VidPlaceholder from './VidPlaceholder';
+import VideoControls from './VideoControls.js';
 
 export default class MainContainer extends Component {
     constructor(props) {
@@ -12,8 +13,7 @@ export default class MainContainer extends Component {
     }
 
     getVideoSection() {
-	return this.state.tracking ?
-	    <App /> : <VidPlaceholder clickHandler={this.toggleTracking.bind(this)} />
+	return this.state.tracking ? <App /> : <VidPlaceholder clickHandler={this.toggleTracking.bind(this)} />
     }
 
     toggleTracking() {
@@ -29,6 +29,7 @@ export default class MainContainer extends Component {
 		{ this.getVideoSection() }
 		</div>
 		<div className="col-md-6">
+		<VideoControls />
 		</div>
 	    </div>
 	    </div>
