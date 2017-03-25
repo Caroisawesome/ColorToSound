@@ -1,37 +1,39 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
-import OPTIONS from './controlOptions';
+import OPTIONS from './controlOptions.js';
 
 export default class ControlBox extends Component {
     constructor(props) {
 	super(props);
-
-	this.state = {
-	    colorValue: this.props.color
-	}
-	
-	this.colorChangeHandler = () => {};
     }
 
-    getColorOptions() {
-	return Object.keys(OPTIONS.color).map( key => {
-	    return OPTIONS.color[key];
-	});
+    getOptions(field) {
+	const fieldOptions = OPTIONS()[field];
+	return Object.keys(fieldOptions).map( key => fieldOptions[key] );
     }
 
     render() {
-	return (
-		<div>
+	const changeHandler = this.props.controls.changeHandler;
+	const selects = [];
+	const self = this;
+	
+	Object.keys(this.props.controls).forEach( key => {
 
-	    <Select
-	name="color-field"
-	value="yellow"
-	    options={this.getColorOptions()}
-	    onChange={this.props.colorChangeHandler}/>
+	    if (key !== "changeHandler") {
+		selects.push(
 
-	    <Select name="" />
-	    </div>
-	)
+			<Select
+		    key={key}
+		    name={`${key}-field`}
+		    value={self.props.controls[key]}
+		    options={self.getOptions(key)}
+		    onChange={val => changeHandler(key, val)}/>
+
+		)
+	    }
+	});
+
+	return <div>{selects}</div>;
     }
 }
 

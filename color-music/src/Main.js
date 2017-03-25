@@ -6,10 +6,25 @@ import VideoControls from './VideoControls.js';
 export default class MainContainer extends Component {
     constructor(props) {
 	super(props)
-	
+
+	const self = this;
 	this.state = {
 	    tracking: false,
+	    controls: [{
+		color: 'yellow',
+		scale: 'cMaj',
+		effect: 'distortion',
+		changeHandler: (field, value) => {
+		    self.changeHandler.call(self, 0, field, value);
+		}
+	    }]
 	}
+    }
+
+    changeHandler(index, field, value) {
+	const controls = this.state.controls;
+	controls[index][field] = value;
+	this.setState({ controls });
     }
 
     getVideoSection() {
@@ -29,7 +44,7 @@ export default class MainContainer extends Component {
 		{ this.getVideoSection() }
 		</div>
 		<div className="col-md-6">
-		<VideoControls />
+		<VideoControls controls={this.state.controls}/>
 		</div>
 	    </div>
 	    </div>
