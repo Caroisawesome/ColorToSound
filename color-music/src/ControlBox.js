@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
-import OPTIONS from './controlOptions.js';
+import OPTIONS from './controlOptions';
 
 export default class ControlBox extends Component {
     constructor(props) {
@@ -15,7 +15,6 @@ export default class ControlBox extends Component {
     render() {
 	const changeHandler = this.props.controls.changeHandler;
 	const selects = [];
-	const self = this;
 	
 	Object.keys(this.props.controls).forEach( key => {
 
@@ -25,8 +24,8 @@ export default class ControlBox extends Component {
 			<Select
 		    key={key}
 		    name={`${key}-field`}
-		    value={self.props.controls[key]}
-		    options={self.getOptions(key)}
+		    value={this.props.controls[key]}
+		    options={this.getOptions(key)}
 		    onChange={val => changeHandler(key, val)}/>
 
 		)
