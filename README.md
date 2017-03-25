@@ -6,3 +6,5 @@ cd color-music/
 npm install
 npm start
 ```
+
+TODO: cleanup file structure. attach tracker to controls
