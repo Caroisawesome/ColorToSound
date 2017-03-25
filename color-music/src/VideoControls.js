@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import OPTIONS from './controlOptions';
+import ControlBox from './ControlBox.js';
 
 export default class VideoControls extends Component {
     constructor(props) {
@@ -10,20 +10,25 @@ export default class VideoControls extends Component {
 		color: 'yellow',
 		scale: 'cMaj',
 		effect: 'distortion'
-	    },{
-		color: 'magenta',
-		scale: 'cMin',
-		effect: 'tremolo'
 	    }]
 	}
     }
 
     soundControlRow(controls, index) {
-	return <p key={index.toString()}>{controls.color}, {controls.effect}, {controls.scale}</p>
+	return <div key={index.toString()}>
+	    <ControlBox
+	color={controls.color}
+	colorChangeHandler={this.colorChangeHandler.bind(this)}
+	    />
+	</div>
+    }
+
+    colorChangeHandler(val) {
+	this.setState({ color: val});
     }
     
     render() {
-	const controls = this.state.soundCtrls.map( (obj, i) => this.soundControlRow(obj, i))
+	const controls = this.state.soundCtrls.map((obj, i) => this.soundControlRow.call(this, obj, i))
 
 	return <div>{controls}</div>
     }
