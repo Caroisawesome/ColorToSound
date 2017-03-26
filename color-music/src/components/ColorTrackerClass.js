@@ -4,7 +4,7 @@ import $ from 'jquery';
 import Tone from 'tone';
 
 class ColorNoiseMaker {
-    constructor(videoId, canvasId) {
+    constructor(videoId, canvasId, controls) {
 	this.makeNoise = true;
 	this.colors = ['magenta', 'cyan', 'yellow'];
 	this.videoId ='#'+videoId;

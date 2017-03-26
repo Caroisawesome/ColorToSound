@@ -28,7 +28,9 @@ export default class MainContainer extends Component {
     }
 
     getVideoSection() {
-	return this.state.tracking ? <App /> : <VidPlaceholder clickHandler={this.toggleTracking.bind(this)} />
+	return this.state.tracking
+	    ? <App controls={this.state.controls} />
+	    : <VidPlaceholder clickHandler={this.toggleTracking.bind(this)} />
     }
 
     toggleTracking() {

@@ -14,7 +14,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-	this.noiseMaker = new ColorNoiseMaker(this.state.videoId, this.state.canvasId);
+	this.noiseMaker = new ColorNoiseMaker(this.state.videoId, this.state.canvasId, this.props.controls);
     }
     
   render() {
