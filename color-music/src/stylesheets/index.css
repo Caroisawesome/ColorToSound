@@ -1,0 +1,5 @@
+@import url(../../node_modules/react-select/dist/react-select.css);
+body {
+  margin: 100;
+  padding: 0;
+  font-family: sans-serif; }

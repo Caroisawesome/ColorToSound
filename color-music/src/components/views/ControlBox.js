@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
-import OPTIONS from './controlOptions';
+import OPTIONS from './../controlOptions';
 
 export default class ControlBox extends Component {
     constructor(props) {

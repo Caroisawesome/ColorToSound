@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ColorNoiseMaker from './ColorTrackerClass.js';
+import ColorNoiseMaker from './../ColorTrackerClass.js';
 
 class App extends Component {
 
