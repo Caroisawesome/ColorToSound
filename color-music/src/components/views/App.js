@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ColorNoiseMaker from './../ColorTrackerClass.js';
+import OPTIONS from './../controlOptions';
 
 class App extends Component {
 
@@ -14,7 +15,15 @@ class App extends Component {
     }
 
     componentDidMount() {
-	this.noiseMaker = new ColorNoiseMaker(this.state.videoId, this.state.canvasId, this.props.controls);
+	this.trackers = this.props.controls.map(control => {
+	    const settings = {
+		color: OPTIONS().color[control.color].value,
+		effect: OPTIONS().effect[control.effect].value,
+		scale: OPTIONS().scale[control.scale].value
+	    }
+			
+	    return new ColorNoiseMaker(this.state.videoId, this.state.canvasId, settings);
+	});
     }
     
   render() {

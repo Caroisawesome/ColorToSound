@@ -7,10 +7,10 @@ const OPTIONS = () => { return {
     },
 
     effect: {
-	distortion: { label:"Distortion", value: "distortion"},
-	tremolo: { label:"Tremolo", value: "tremolo"},
-	phaser: { label:"Phaser", value: "phaser"},
-	chorus: { label:"Chorus", value: "chorus"}
+	distortion: { label:"Distortion", value: "Distortion"},
+	tremolo: { label:"Tremolo", value: "Temolo"},
+	phaser: { label:"Phaser", value: "Phaser"},
+	chorus: { label:"Chorus", value: "Chorus"}
     },
 
     scale: {

@@ -4,17 +4,17 @@ import $ from 'jquery';
 import Tone from 'tone';
 
 class ColorNoiseMaker {
-    constructor(videoId, canvasId, controls) {
+    constructor(videoId, canvasId, settings) {
 	this.makeNoise = true;
-	this.colors = ['magenta', 'cyan', 'yellow'];
+	this.colors = [settings.color]
 	this.videoId ='#'+videoId;
 	this.canvas = $('#'+canvasId)[0];
 	this.context = this.canvas.getContext('2d');
 	this.polySynth = new Tone.PolySynth(4, Tone.Synth).toMaster();
-	this.distortion = new Tone.Distortion().toMaster();
+	this.distortion = new Tone[settings.effect]().toMaster();
 	this.colorTracker = new tracking.ColorTracker(this.colors);
 	
-	this.CScale = ["C3","D3","E3","F3","G3","A3","B3","C4","D4","E4","F4","G4","A4","B4"];
+	this.CScale = settings.scale;
 	
 	this.initTracking();
     }
