@@ -9,7 +9,9 @@ export default class ControlBox extends Component {
 
     getOptions(field) {
 	const fieldOptions = OPTIONS()[field];
-	return Object.keys(fieldOptions).map( key => fieldOptions[key] );
+	return Object.keys(fieldOptions).map( key => {
+	    return { value: key, label:fieldOptions[key].label};
+	});
     }
 
     render() {
